@@ -102,7 +102,7 @@ function randSnow(a,b){return a+Math.random()*(b-a)}
 let snowTime=0;
 let state='ready',score=0,lives=3,combo=0,best=0;
 let elapsed=0,spawn=0,objects=[],particles=[];
-let playerX=300,dir=0,pointer=false,invincible=0,last=0,raf=0;
+let playerX=300,dir=0,pointer=false,invincible=0,last=0;
 
 try{
 best=Number(localStorage.getItem('coolbet-gift-catch-best')||0);
@@ -416,10 +416,13 @@ for(const o of objects)gift(o);
 
 ctx.save();
 ctx.translate(playerX,H-29);
+
 if(invincible>0&&Math.floor(invincible*10)%2===0)ctx.globalAlpha=.4;
-ctx.fillStyle='#345e6580';
+
+// Adjusted shadow: raised 22px and made smaller
+ctx.fillStyle='rgba(20, 55, 65, 0.25)';
 ctx.beginPath();
-ctx.ellipse(0,0,45,9,0,0,Math.PI*2);
+ctx.ellipse(0,-22,39,7,0,0,Math.PI*2);
 ctx.fill();
 
 if(bear.complete&&bear.naturalWidth){
@@ -456,7 +459,7 @@ last=t;
 snowTime+=dt;
 if(state==='playing')update(dt);
 draw();
-raf=requestAnimationFrame(loop);
+requestAnimationFrame(loop);
 }
 
 el('start').addEventListener('click',()=>{
